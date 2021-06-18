@@ -1,0 +1,93 @@
+<div class="main-content">
+  <div class="section__content section__content--p30">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="text-right col-12">
+          <button mat-raised-button color="primary" (click)="openAddSoftDialog()">Добавить</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive table--no-card m-b-40">
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>
+            </mat-form-field>
+            <table mat-table
+                   matSort [dataSource]="dataSource"
+                   class="table table-borderless table-striped table-earning"
+            >
+              <ng-container matColumnDef="id">
+                <th *matHeaderCellDef mat-header-cell class="col-id"> # </th>
+                <td *matCellDef="let index = index;" mat-cell class="col-id">{{index+1}}</td>
+              </ng-container>
+              <ng-container matColumnDef="inv">
+                <th mat-header-cell *matHeaderCellDef class="col-inv"> inv </th>
+                <td mat-cell *matCellDef="let element" class="col-inv"> {{element.inv}} </td>
+              </ng-container>
+              <ng-container matColumnDef="date">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef class="col-date"> date </th>
+                <td mat-cell *matCellDef="let element" class="col-date"> {{element.date | date: 'mediumDate' }} </td>
+              </ng-container>
+              <ng-container matColumnDef="article">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef class="col-article"> article </th>
+                <td (click)="openEditDialog(element)" mat-cell *matCellDef="let element" class="col-article">{{element.article}}</td>
+              </ng-container>
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef class="col-title"> title </th>
+                <td mat-cell *matCellDef="let element" class="text-left"> {{element.title}} </td>
+              </ng-container>
+              <!--доступные действия над задачей-->
+              <ng-container matColumnDef="operations">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td *matCellDef="let element" class="col-operations" mat-cell>
+
+                  <button (click)="openDeleteDialog(element)" class="delete-icon"
+                          mat-icon-button
+                  >
+                    <mat-icon aria-hidden="false">delete</mat-icon>
+                  </button>
+
+
+                  <button (click)="openEditDialog(element)" class="edit-icon"
+                          mat-icon-button
+                  >
+
+                    <mat-icon aria-hidden="false">edit</mat-icon>
+                  </button>
+
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--    <pre>{{allSoft | json}}</pre>-->
+  </div>
+</div>
+<!--<div class="report-table-container mat-elevation-z8">-->
+<!--  <h2 class="title-1 m-b-25">The best football clubs of Europe</h2>-->
+<!--  <table border="1" cellpadding="5" class="table">-->
+<!--    <tr>-->
+<!--      <th class="th">ID</th>-->
+<!--      <th class="th">NUM</th>-->
+<!--      <th class="th">Date</th>-->
+<!--      <th class="th" >Article</th>-->
+<!--      <th class="th">Title</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let item of allSoft; let i=index" class="td">-->
+<!--      <ng-container>-->
+<!--        <td class="td">{{item.id}}</td>-->
+<!--        <td class="td">{{item.inv}}</td>-->
+<!--        <td class="td">{{item.date}}</td>-->
+<!--        <td class="td">{{item.article}}</td>-->
+<!--        <td class="td">{{item.title}}</td>-->
+<!--      </ng-container>-->
+
+<!--    </tr>-->
+<!--  </table>-->
+<!--</div>-->
