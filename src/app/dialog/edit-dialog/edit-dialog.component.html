@@ -1,4 +1,4 @@
-<mat-dialog-content>
+<mat-dialog-content xmlns="http://www.w3.org/1999/html">
   <p mat-dialog-title>{{dialogTitle}}</p>
   <!--inv    -->
   <mat-form-field>
@@ -13,7 +13,7 @@
       (click)="tmpNom= ''"
       *ngIf="tmpNom.trim().length > 0" aria-label="Clear" class="size25" mat-button
       mat-icon-button matSuffix>
-      <mat-icon>X</mat-icon>
+      <mat-icon>delete</mat-icon>
     </button>
 
   </mat-form-field>
@@ -23,10 +23,8 @@
     <input
       matInput placeholder="Укажите дату поставки" #inputDate
       readonly="true"
-
       [matDatepicker]="picker"
       [(ngModel)]="tmpDate"
-
       (click)="picker.open()">
 
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -42,7 +40,7 @@
 
       (click)="tmpDate = null" class="size25">
 
-      <mat-icon>X</mat-icon>
+      <mat-icon>delete</mat-icon>
 
     </button>
 
@@ -79,7 +77,7 @@
 
       mat-icon-button matSuffix>
 
-      <mat-icon>X</mat-icon>
+      <mat-icon>delete</mat-icon>
     </button>
 
   </mat-form-field>
@@ -100,6 +98,7 @@
 
   <button (click)="onCancel()" mat-raised-button>Отмена</button>
   <button mat-button class="red" (click)="delete()">Удалить эталон</button>
+
 
 </mat-dialog-actions>
 

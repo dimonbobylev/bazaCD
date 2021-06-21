@@ -1,7 +1,7 @@
 import {SoftDAO} from '../interface/SoftDAO';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {SoftCD} from '../SoftCD';
-import {TestData} from '../../data/TestData';
+
 
 export class SoftDAOArray implements SoftDAO {
   add(T): Observable<SoftCD> {
@@ -9,10 +9,10 @@ export class SoftDAOArray implements SoftDAO {
   }
 
   delete(id: number): Observable<SoftCD> {
-    const softTmp = TestData.softCDs.find(t => t.id === id); // удаляем по id
-    TestData.softCDs.splice(TestData.softCDs.indexOf(softTmp), 1);
-
-    return of(softTmp);
+    // const softTmp = TestData.softCDs.find(t => t.id === id); // удаляем по id
+    // TestData.softCDs.splice(TestData.softCDs.indexOf(softTmp), 1);
+    //
+    return undefined;
   }
 
   get(id: number): Observable<SoftCD> {
@@ -20,7 +20,7 @@ export class SoftDAOArray implements SoftDAO {
   }
 
   getAll(): Observable<SoftCD[]> {
-    return of(TestData.softCDs);
+    return undefined;
   }
 
   getCountInArticle(article: string): Observable<number> {
@@ -28,10 +28,10 @@ export class SoftDAOArray implements SoftDAO {
   }
 
   update(soft: SoftCD): Observable<SoftCD> {
-    const softTmp = TestData.softCDs.find(t => t.id === soft.id); // обновляем по id
-    TestData.softCDs.splice(TestData.softCDs.indexOf(softTmp), 1, soft);
+    // const softTmp = TestData.softCDs.find(t => t.id === soft.id); // обновляем по id
+    // TestData.softCDs.splice(TestData.softCDs.indexOf(softTmp), 1, soft);
 
-    return of(soft);
+    return undefined;
 
   }
 

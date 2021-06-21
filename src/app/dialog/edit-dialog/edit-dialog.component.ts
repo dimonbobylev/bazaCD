@@ -32,19 +32,19 @@ export class EditDialogComponent implements OnInit {
     this.tmpNom = this.soft.inv;
     this.tmpArticle = this.soft.article;
     this.tmpDate = this.soft.date;
+    // console.log('editDialog: ', this.tmpDate);
   }
   // нажали ОК
   onConfirm(): void {
-
-    // считываем все значения для сохранения в поля задачи
+    // считываем все значения для сохранения в поля редактирования
     this.soft.title = this.tmpTitle;
     this.soft.article = this.tmpArticle;
     this.soft.date = this.tmpDate;
     this.soft.inv = this.tmpNom;
-    // передаем добавленную/измененную задачу в обработчик
+    // передаем добавленный/измененный эталон в обработчик
     // что с ним будут делать - уже на задача этого компонента
     this.dialogRef.close(this.soft);
-    // console.log('editdialog: ', this.etalon);
+    // console.log('editDialog: ', this.tmpDate);
   }
 
   // нажали отмену (ничего не сохраняем и закрываем окно)

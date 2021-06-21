@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {DataHandlerService} from '../../service/data-handler.service';
@@ -14,7 +14,7 @@ import {EditDialogComponent} from '../../dialog/edit-dialog/edit-dialog.componen
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css']
 })
-export class PageComponent implements OnInit, AfterViewInit {
+export class PageComponent implements OnInit {
 
   dataSource: MatTableDataSource<SoftCD>; // контейнер - источник данных для таблицы
   // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
@@ -37,8 +37,7 @@ export class PageComponent implements OnInit, AfterViewInit {
   addSoft = new EventEmitter<SoftCD>();
   @Output()
   updateSoft = new EventEmitter<SoftCD>();
-  @Output()
-  delSoft = new EventEmitter<SoftCD>();
+
   constructor(
     private dataHandler: DataHandlerService, // доступ к данным
     private dialog: MatDialog, // работа с диалоговым окном
@@ -48,10 +47,6 @@ export class PageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.fillTable();
-  }
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
-    this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
   }
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -70,7 +65,7 @@ export class PageComponent implements OnInit, AfterViewInit {
       this.dataSource.data = this.allSoft; // обновить источник данных (т.к. данные массива soft обновились)
     });
     this.dataSource.data = this.allSoft; // обновить источник данных (т.к. данные массива soft обновились)
-    // this.addTableObjects();
+    this.addTableObjects();
   }
 
   private addTableObjects(): void {
@@ -100,8 +95,6 @@ export class PageComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(EditDialogComponent, {data: [element, 'Редактирование'], autoFocus: false});
     dialogRef.afterClosed().subscribe( result => {
       if (result === 'delete') {
-        // console.log('page: ', this.allEtalons);
-        // console.log('page: ', element);
         this.deleteSoft.emit(element);
         return;
       }
@@ -114,10 +107,10 @@ export class PageComponent implements OnInit, AfterViewInit {
   }
   openAddSoftDialog(): void {
 
-    // то же самое, что и при редактировании, но только передаем пустой объект Task
+    // то же самое, что и при редактировании, но только передаем пустой объект SoftCD
     const soft = new SoftCD(null, '', new Date(''), '', '');
 
-    const dialogRef = this.dialog.open(EditDialogComponent, {data: [soft, 'Добавление задачи']});
+    const dialogRef = this.dialog.open(EditDialogComponent, {data: [soft, 'Добавление эталона']});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) { // если нажали ОК и есть результат
