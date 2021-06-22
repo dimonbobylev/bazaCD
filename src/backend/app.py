@@ -131,6 +131,30 @@ def onUpdateSoft():
     return jsonify(listRang)
 
 
+@app.route("/onDateFilter", methods=['POST'])
+def onDateFilter():
+    f = request.json
+    try:
+        with sq.connect("soft-collection.db") as con:
+            cur = con.cursor()
+            sql_update = "SELECT * FROM soft WHERE date BETWEEN " + "'" + str(f['dateStart']) + "'" + \
+                         " AND " + "'" + str(f['dateFinish']) + "'"
+            cur.execute(sql_update)
+            result = cur.fetchall()
+            listRang = []
+            for res in result:
+                row_data = {}
+                row_data['id'] = res[0]
+                row_data['inv'] = res[1]
+                row_data['date'] = res[2]
+                row_data['article'] = res[3]
+                row_data['title'] = res[4]
+                listRang.append(row_data)
+    except:
+        session.rollback()
+        print("Ошибка фильтрации БД")
+    return jsonify(listRang)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

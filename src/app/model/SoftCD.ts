@@ -13,3 +13,12 @@ export class SoftCD {
     this.title = title;
   }
 }
+export class DateFind {
+  dateStart: Date;
+  dateFinish: Date;
+
+  constructor(dateStart: Date, dateFinish: Date) {
+    this.dateStart = dateStart;
+    this.dateFinish = dateFinish;
+  }
+}

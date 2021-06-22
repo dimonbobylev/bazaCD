@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataHandlerService} from './service/data-handler.service';
-import {SoftCD} from './model/SoftCD';
+import {DateFind, SoftCD} from './model/SoftCD';
 import {HttpClient} from '@angular/common/http';
 
 
@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   allSoft: SoftCD[];
+  dateApp: DateFind;
 
   constructor(private dataHandler: DataHandlerService,
               private http: HttpClient) {
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit {
   onUpdateSoft(soft: SoftCD): void {
     this.http.post<any>('http://127.0.0.1:5000/onUpdateSoft', soft)
       .subscribe(back => {
-        console.log('onUpdateSoft: ' , back);
+        // console.log('onUpdateSoft: ' , back);
         this.allSoft = back;
       });
   }
@@ -50,4 +51,8 @@ export class AppComponent implements OnInit {
       });
   }
 
+  dateFilter(dateFil: DateFind): void {
+    this.http.post<any>('http://127.0.0.1:5000/onDateFilter', dateFil)
+      .subscribe(back => this.allSoft = back);
+  }
 }
