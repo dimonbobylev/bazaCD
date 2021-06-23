@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Book
 import sqlite3 as sq
+import rezalt
 
 
 app = Flask(__name__)
@@ -20,34 +21,26 @@ session = DBSession()
 
 
 @app.route("/softCD/", methods=['GET'])
-def SoftCD():
+def soft_cd():
     try:
         with sq.connect("soft-collection.db") as con:
             cur = con.cursor()
             cur.execute("SELECT * FROM soft")
             result = cur.fetchall()
-            listRang = []
-            for res in result:
-                row_data = {}
-                row_data['id'] = res[0]
-                row_data['inv'] = res[1]
-                row_data['date'] = res[2]
-                row_data['article'] = res[3]
-                row_data['title'] = res[4]
-                listRang.append(row_data)
-    except:
+            list_bd = rezalt.array_json(result)
+    except FileNotFoundError:
         session.rollback()
         print("Ошибка открытия в БД")
-    return jsonify(listRang)
+    return jsonify(list_bd)
 
 
 @app.route("/onAddSoft", methods=['POST'])
-def addSoft():
+def add_soft():
     f = request.json
     date = f['date']
     a = datetime.date(int(date[0:4]), int(date[5:7]), int(date[8:10]))
-    newSoft = Book(inv=f['inv'], date=a, article=f['article'], title=f['title'])
-    session.add(newSoft)
+    new_soft = Book(inv=f['inv'], date=a, article=f['article'], title=f['title'])
+    session.add(new_soft)
     session.commit()
     # print(newSoft)
     try:
@@ -55,24 +48,15 @@ def addSoft():
             cur = con.cursor()
             cur.execute("SELECT id, inv, date, article, title FROM soft")
             result = cur.fetchall()
-            listRang = []
-            for res in result:
-                row_data = {}
-                row_data['id'] = res[0]
-                row_data['inv'] = res[1]
-                row_data['date'] = res[2]
-                row_data['article'] = res[3]
-                row_data['title'] = res[4]
-                # print(row_data)
-                listRang.append(row_data)
-    except:
+            list_bd = rezalt.array_json(result)
+    except FileNotFoundError:
         session.rollback()
         print("Ошибка добавления в БД")
-    return jsonify(listRang)
+    return jsonify(list_bd)
 
 
 @app.route("/onDeleteSoft", methods=['POST'])
-def onDeleteSoft():
+def delete_soft():
     f = request.json
     # print(str(f['id']))
     try:
@@ -84,28 +68,19 @@ def onDeleteSoft():
             session.commit()
             cur.execute("SELECT * FROM soft")
             result = cur.fetchall()
-            listRang = []
-            for res in result:
-                row_data = {}
-                row_data['id'] = res[0]
-                row_data['inv'] = res[1]
-                row_data['date'] = res[2]
-                row_data['article'] = res[3]
-                row_data['title'] = res[4]
-                listRang.append(row_data)
-    except:
+            list_bd = rezalt.array_json(result)
+    except FileNotFoundError:
         session.rollback()
         print("Ошибка удаления из БД")
-    return jsonify(listRang)
+    return jsonify(list_bd)
+
 
 @app.route("/onUpdateSoft", methods=['POST'])
-def onUpdateSoft():
+def update_soft():
     f = request.json
-    # print(f)
     try:
         with sq.connect("soft-collection.db") as con:
             cur = con.cursor()
-            # cur.execute("SELECT * FROM soft")
             sql_update = "UPDATE soft SET inv = " + "'" + str(f['inv']) + "'," + \
                 " date = " + "'" + str(f['date']) + "'," + " article = " + "'" + str(f['article']) + "'," + \
                 " title = " + "'" + str(f['title']) + "'" + " where id = " + str(f['id'])
@@ -116,23 +91,15 @@ def onUpdateSoft():
         #     cur = con.cursor()
             cur.execute("SELECT * FROM soft")
             result = cur.fetchall()
-            listRang = []
-            for res in result:
-                row_data = {}
-                row_data['id'] = res[0]
-                row_data['inv'] = res[1]
-                row_data['date'] = res[2]
-                row_data['article'] = res[3]
-                row_data['title'] = res[4]
-                listRang.append(row_data)
-    except:
+            list_bd = rezalt.array_json(result)
+    except FileNotFoundError:
         session.rollback()
         print("Ошибка обновления БД")
-    return jsonify(listRang)
+    return jsonify(list_bd)
 
 
 @app.route("/onDateFilter", methods=['POST'])
-def onDateFilter():
+def date_filter():
     f = request.json
     try:
         with sq.connect("soft-collection.db") as con:
@@ -141,21 +108,12 @@ def onDateFilter():
                          " AND " + "'" + str(f['dateFinish']) + "'"
             cur.execute(sql_update)
             result = cur.fetchall()
-            listRang = []
-            for res in result:
-                row_data = {}
-                row_data['id'] = res[0]
-                row_data['inv'] = res[1]
-                row_data['date'] = res[2]
-                row_data['article'] = res[3]
-                row_data['title'] = res[4]
-                listRang.append(row_data)
-    except:
+            list_bd = rezalt.array_json(result)
+    except FileNotFoundError:
         session.rollback()
         print("Ошибка фильтрации БД")
-    return jsonify(listRang)
+    return jsonify(list_bd)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-

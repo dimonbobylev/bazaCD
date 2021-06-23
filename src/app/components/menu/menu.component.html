@@ -1,59 +1,63 @@
-<h2>Menu Component</h2>
-<mat-form-field>
+<!--<div class="content&#45;&#45;p50">-->
+<div class="container-fluid">
+  <h2>Выборка по дате:</h2>
+  <mat-form-field>
 
-  <input
-    matInput placeholder="Укажите дату начала поиска" #inputDateStart
-    readonly="true"
-    [matDatepicker]="pickerStart"
-    [(ngModel)]="dateFilter.dateStart"
-    (ngModelChange)="startSearch()"
-    (click)="pickerStart.open()">
+    <input
+      matInput placeholder="Укажите дату начала поиска" #inputDateStart
+      readonly="true"
+      [matDatepicker]="pickerStart"
+      [(ngModel)]="dateFilter.dateStart"
+      (ngModelChange)="startSearch()"
+      (click)="pickerStart.open()">
 
-  <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-  <!-- иконка календаря (для открытия календаря) -->
+    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+    <!-- иконка календаря (для открытия календаря) -->
 
-  <mat-datepicker #pickerStart></mat-datepicker> <!-- компонент календаря (открывается по нажатию)-->
+    <mat-datepicker #pickerStart></mat-datepicker> <!-- компонент календаря (открывается по нажатию)-->
 
-  <!--кнопка очистки даты -->
-  <button
-    *ngIf="inputDateStart.value.trim().length > 0"
+    <!--кнопка очистки даты -->
+    <button
+      *ngIf="inputDateStart.value.trim().length > 0"
 
-    mat-button matSuffix mat-icon-button aria-label="Clear"
+      mat-button matSuffix mat-icon-button aria-label="Clear"
 
-    (click)="buttonStartClear()" class="size25">
+      (click)="buttonStartClear()" class="size25">
 
-    <mat-icon>delete</mat-icon>
+      <mat-icon>delete</mat-icon>
 
-  </button>
+    </button>
 
-</mat-form-field>
+  </mat-form-field>
 
-<mat-form-field>
+  <mat-form-field>
 
-  <input
-    matInput placeholder="Укажите дату окончания поиска" #inputDateFinish
-    readonly="true"
-    [matDatepicker]="pickerFinish"
-    [(ngModel)]="dateFilter.dateFinish"
-    (dateChange)="finishSearch()"
-    (click)="pickerFinish.open()">
+    <input
+      matInput placeholder="Укажите дату окончания поиска" #inputDateFinish
+      readonly="true"
+      [matDatepicker]="pickerFinish"
+      [(ngModel)]="dateFilter.dateFinish"
+      (dateChange)="finishSearch()"
+      (click)="pickerFinish.open()">
 
-  <mat-datepicker-toggle matSuffix [for]="pickerFinish"></mat-datepicker-toggle>
-  <!-- иконка календаря (для открытия календаря) -->
+    <mat-datepicker-toggle matSuffix [for]="pickerFinish"></mat-datepicker-toggle>
+    <!-- иконка календаря (для открытия календаря) -->
 
-  <mat-datepicker #pickerFinish></mat-datepicker> <!-- компонент календаря (открывается по нажатию)-->
+    <mat-datepicker #pickerFinish></mat-datepicker> <!-- компонент календаря (открывается по нажатию)-->
 
-  <!--кнопка очистки даты -->
-  <button
-    *ngIf="inputDateFinish.value.trim().length > 0"
+    <!--кнопка очистки даты -->
+    <button
+      *ngIf="inputDateFinish.value.trim().length > 0"
 
-    mat-button matSuffix mat-icon-button aria-label="Clear"
+      mat-button matSuffix mat-icon-button aria-label="Clear"
 
-    (click)="buttonFinishClear()" class="size25">
+      (click)="buttonFinishClear()" class="size25">
 
-    <mat-icon>delete</mat-icon>
+      <mat-icon>delete</mat-icon>
 
-  </button>
+    </button>
 
-</mat-form-field>
+  </mat-form-field>
+
+</div>
 

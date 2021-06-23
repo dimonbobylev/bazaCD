@@ -13,9 +13,7 @@ export class MenuComponent implements OnInit{
   dateFilterOut = new EventEmitter<DateFind>();
 
   dateStart: Date;
-  tmpDateStart: Date;
   dateFinish: Date;
-  tmpDateFinish: Date;
   dateFilter: DateFind;
 
   constructor() {
@@ -23,9 +21,7 @@ export class MenuComponent implements OnInit{
 
   ngOnInit(): void {
     this.dateStart = new Date(2020, 1, 1);
-    this.tmpDateStart = this.dateStart;
     this.dateFinish = new Date();
-    this.tmpDateFinish = this.dateFinish;
     this.dateFilter = new DateFind(this.dateStart, this.dateFinish);
     // console.log('dateStart = ', this.dateFilter.dateStart);
     // console.log('dateFinish = ', this.dateFilter.dateFinish);
@@ -35,8 +31,6 @@ export class MenuComponent implements OnInit{
     if (this.dateFilter.dateStart > this.dateFilter.dateFinish) {
       this.dateFilter.dateFinish = this.dateFilter.dateStart;
     }
-    console.log('dateStart = ', this.dateFilter.dateStart);
-    console.log('dateFinish = ', this.dateFilter.dateFinish);
     this.dateFilterOut.emit(this.dateFilter);
   }
 

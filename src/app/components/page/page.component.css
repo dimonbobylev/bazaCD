@@ -14,15 +14,15 @@
 }
 .col-inv {
   width: 10%;
-  text-align: center;
+  /*text-align: center;*/
 }
 .col-date {
   width: 15%;
-  text-align: center;
+  /*text-align: center;*/
 }
 .col-article {
   width: 10%;
-  text-align: center;
+  /*text-align: center;*/
 }
 .col-title {
   width: 50% !important;

@@ -22,3 +22,12 @@ export class DateFind {
     this.dateFinish = dateFinish;
   }
 }
+export class StatisticsArray  {
+  year: number;
+  count: number;
+
+  constructor(year: number, count: number) {
+    this.year = year;
+    this.count = count;
+  }
+}

@@ -27,6 +27,7 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
+import { StatisticaComponent } from './components/statistica/statistica.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {HttpClientModule} from '@angular/common/http';
     MenuComponent,
     PageComponent,
     EditDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    StatisticaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+<div class="container-fluid">
+<h2 style="text-align: center">Статистика поставок</h2>
+  <table border="1" cellpadding="5" class="table" *ngIf="statArray">
+    <tr>
+      <ng-container *ngFor="let item of statArray">
+        <th class="th">{{item.year}}</th>
+      </ng-container>
+    </tr>
+    <tr class="td">
+      <ng-container *ngFor="let item of statArray">
+        <td class="td">{{item.count}}</td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
